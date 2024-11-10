@@ -23,7 +23,7 @@ const MoveiDetail: React.FC = () => {
       }
     };
     getMovieData();
-  }, []);
+  }, [id]);
 
   if (loading) return <div>Loading...</div>;
 

@@ -35,11 +35,11 @@ const Navbar: React.FC<NavbarProps> = ({ onSearch }) => {
     if (debounceSearchQuery) {
       const results = await fetchSearchMovie(debounceSearchQuery);
       onSearch(results);
-      setSearchQuery('');
     } else {
       onSearch([]);
     }
-    setIsSearchOpen(!isSearchOpen);
+    setSearchQuery('');
+    setIsSearchOpen(false);
   };
 
   return (
@@ -97,7 +97,14 @@ const Navbar: React.FC<NavbarProps> = ({ onSearch }) => {
                       (movie: any, index: number) =>
                         index < 5 && (
                           <li key={movie.id} className="mb-2 max-w-60">
-                            <Link to={`/details/${movie.id}`} key={movie.id}>
+                            <Link
+                              onClick={() => {
+                                setIsSearchOpen(false);
+                                setSearchQuery('');
+                              }}
+                              to={`/details/${movie.id}`}
+                              key={movie.id}
+                            >
                               <div>
                                 <img
                                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
