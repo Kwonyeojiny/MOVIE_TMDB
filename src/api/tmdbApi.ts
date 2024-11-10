@@ -27,3 +27,15 @@ export const fetchMovieDetail = async (movieId: string | undefined) => {
     return [];
   }
 };
+
+export const fetchSearchMovie = async (query: string) => {
+  try {
+    const response = await tmdbApi.get(`/search/movie`, {
+      params: { query },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error('Error fetching search movies: ');
+    return [];
+  }
+};
