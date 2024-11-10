@@ -32,7 +32,7 @@ const MoveiDetail: React.FC = () => {
 
   return (
     <>
-      <div className="mt-24 m-8 grid gap-4 p-4 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 md:grid-cols-2">
+      <div className="mt-24 max-w-[800px] grid gap-4 p-4 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 md:grid-cols-2 md:mx-auto mx-8">
         <img
           src={`${baseUrl}${poster_path}`}
           className="w-full border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300"
