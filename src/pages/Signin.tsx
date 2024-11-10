@@ -11,12 +11,16 @@ const Signin: React.FC = () => {
     navigate('/');
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <div className="flex justify-center items-center min-h-screen">
-        <div className=" w-full max-w-md p-8 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300">
+        <div className=" w-full m-4 max-w-md  p-8 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300">
           <h2 className="text-2xl font-bold text-center mb-6">로그인</h2>
-          <form>
+          <form onSubmit={handleSubmit}>
             <SignInput
               label="이메일"
               type="email"
@@ -24,6 +28,7 @@ const Signin: React.FC = () => {
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
+              autoComplete="email"
             />
             <SignInput
               label="비밀번호"
@@ -32,6 +37,7 @@ const Signin: React.FC = () => {
               value={password}
               onChange={e => setPassword(e.target.value)}
               required
+              autoComplete="current-password"
             />
             <button
               type="submit"

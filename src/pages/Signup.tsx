@@ -13,12 +13,16 @@ const Signup: React.FC = () => {
     navigate('/signin');
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <>
-      <div className="flex justify-center items-center min-h-screen">
-        <div className=" w-full max-w-md p-8 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300">
+      <div className="flex justify-center items-center min-h-[calc(100vh-2rem)] mt-12">
+        <div className=" w-full m-4 max-w-md p-8 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300">
           <h2 className="text-2xl font-bold text-center mb-6">회원가입</h2>
-          <form>
+          <form onSubmit={handleSubmit}>
             <SignInput
               label="이름"
               type="name"
@@ -26,6 +30,7 @@ const Signup: React.FC = () => {
               value={name}
               onChange={e => setName(e.target.value)}
               required
+              autoComplete="name"
             />
             <SignInput
               label="이메일"
@@ -34,6 +39,7 @@ const Signup: React.FC = () => {
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
+              autoComplete="email"
             />
             <SignInput
               label="비밀번호"
@@ -42,6 +48,7 @@ const Signup: React.FC = () => {
               value={password}
               onChange={e => setPassword(e.target.value)}
               required
+              autoComplete="new-password"
             />
             <SignInput
               label="비밀번호 확인"
@@ -50,6 +57,7 @@ const Signup: React.FC = () => {
               value={confirmPassword}
               onChange={e => setconfirmPassword(e.target.value)}
               required
+              autoComplete="new-password"
             />
             <button
               type="submit"

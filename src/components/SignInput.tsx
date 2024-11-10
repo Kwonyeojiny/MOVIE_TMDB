@@ -8,6 +8,7 @@ interface SignInputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   className?: string;
+  autoComplete?: string;
 }
 
 const SignInput: React.FC<SignInputProps> = ({
@@ -18,6 +19,7 @@ const SignInput: React.FC<SignInputProps> = ({
   onChange,
   required = false,
   className = '',
+  autoComplete = '',
 }) => {
   return (
     <>
@@ -30,6 +32,7 @@ const SignInput: React.FC<SignInputProps> = ({
         value={value}
         onChange={onChange}
         required={required}
+        autoComplete={autoComplete}
         className={`w-full px-4 py-2 border-4 border-gray-200 border-l-gray-500 border-t-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 ${className} mb-4`}
       />
     </>
