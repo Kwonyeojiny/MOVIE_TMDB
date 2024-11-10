@@ -7,7 +7,7 @@ const MoveiDetail: React.FC = () => {
   const [movieData, setMovieData] = useState<any>({});
 
   // 구조분해할당
-  const { poster_path, title, vote_average, genres, overview } = movieData && movieData;
+  const { poster_path, title, vote_average, genres, overview } = movieData || {};
 
   useEffect(() => {
     setMovieData(movieDetail);
@@ -19,10 +19,10 @@ const MoveiDetail: React.FC = () => {
 
   return (
     <>
-      <div className="m-8 flex gap-4 p-4 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300">
+      <div className="m-8 grid gap-4 p-4 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 md:grid-cols-2">
         <img
           src={`${baseUrl}${poster_path}`}
-          className="w-80 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300"
+          className="w-full border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300"
         />
         <div>
           <div className="flex items-center justify-between">
