@@ -15,7 +15,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ title, poster_path }) => {
           src={`${baseUrl}${poster_path}`}
           className="w-full aspect-[2/3] object-cover border-2 border-gray-500 border-l-gray-200 border-t-gray-200"
         />
-        <h3 className="font-bold text-[10px] ml-2 mt-2">{title}</h3>
+        <h3 className="font-bold text-sm h-12 ml-2 mt-2 ">{title}</h3>
       </div>
     </>
   );

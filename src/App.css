@@ -1,3 +1,7 @@
 html {
   background-color: #008282;
 }
+
+* {
+  font-family: 'DungGeunMo', sans-serif;
+}
