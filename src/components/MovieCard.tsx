@@ -9,15 +9,14 @@ interface MovieCardProps {
 
 const MovieCard: React.FC<MovieCardProps> = ({ title, poster_path }) => {
   return (
-    <>
-      <div className="w-64 p-4 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 translate-all duration-300 hover:scale-105">
-        <img
-          src={`${baseUrl}${poster_path}`}
-          className="w-full aspect-[2/3] object-cover border-2 border-gray-500 border-l-gray-200 border-t-gray-200"
-        />
-        <h3 className="font-bold text-sm h-12 ml-2 mt-2 ">{title}</h3>
-      </div>
-    </>
+    <div className="w-full max-w-[240px] p-2 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 transition-all duration-300 hover:scale-105">
+      <img
+        src={`${baseUrl}${poster_path}`}
+        alt={title}
+        className="w-full aspect-[2/3] object-cover border-2 border-gray-500 border-l-gray-200 border-t-gray-200"
+      />
+      <h3 className="font-bold text-xs sm:text-sm h-10 mt-2 overflow-hidden">{title}</h3>
+    </div>
   );
 };
 

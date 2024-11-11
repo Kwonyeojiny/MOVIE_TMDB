@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import MovieCard from '../components/MovieCard';
+
 import { Link } from 'react-router-dom';
 import { fetchPopularMovies } from '../api/tmdbApi';
+import MovieCard from '../components/MovieCard';
 
 interface MovieListProps {
   searchResults: any[];
@@ -30,15 +31,15 @@ const MovieList: React.FC<MovieListProps> = ({ searchResults }) => {
   }
 
   return (
-    <>
-      <div className="flex flex-wrap justify-center items-center gap-8 mt-24 mb-8">
+    <div className="container mx-auto px-4 mt-24 mb-8">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
         {moviesToDisplay.map(movie => (
-          <Link to={`/details/${movie.id}`} key={movie.id}>
+          <Link to={`/details/${movie.id}`} key={movie.id} className="flex justify-center">
             <MovieCard title={movie.title} poster_path={movie.poster_path} />
           </Link>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
