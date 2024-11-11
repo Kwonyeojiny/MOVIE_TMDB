@@ -22,18 +22,19 @@ const Navbar: React.FC<NavbarProps> = ({ onSearch }) => {
         const results = await fetchSearchMovie(debounceSearchQuery);
         setSearchResults(results);
       } else {
-        setSearchResults([]);
       }
     };
     searchMovies();
   }, [debounceSearchQuery]);
 
   const toggleSearch = () => {
+    setIsMenuOpen(false);
     setIsSearchOpen(!isSearchOpen);
   };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    setIsSearchOpen(false);
   };
 
   const handleSearchClick = async () => {
@@ -57,17 +58,21 @@ const Navbar: React.FC<NavbarProps> = ({ onSearch }) => {
             <span>Movie</span>
           </div>
         </Link>
-        <div className="flex gap-4 pr-2">
+        <div className="flex items-center gap-4 pr-2">
           <div
             className="p-1 px-2 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500 cursor-pointer"
             onClick={toggleSearch}
           >
-            {isSearchOpen ? '닫기' : '검색'}
+            {isSearchOpen ? (
+              <img src="/imgs/darkx.png" alt="nav_icon" className="w-4 sm:w-4 my-1" />
+            ) : (
+              <img src="/imgs/search.png" alt="nav_icon" className="w-6 sm:w-6" />
+            )}
           </div>
-          <div className="md:hidden">
+          <div className="md:hidden ">
             <button
               onClick={toggleMenu}
-              className="p-1 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500"
+              className="p-1 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500 "
             >
               <Menu size={24} />
             </button>
@@ -90,10 +95,12 @@ const Navbar: React.FC<NavbarProps> = ({ onSearch }) => {
       {isMenuOpen && (
         <div className="md:hidden border-t-2 border-gray-400">
           <Link to="/signup" onClick={toggleMenu}>
-            <div className="p-2 border-b border-gray-300">회원가입</div>
+            <div className="m-2 p-2 border-b border-gray-300 hover:bg-[#02007F] hover:text-white">
+              회원가입
+            </div>
           </Link>
           <Link to="/signin" onClick={toggleMenu}>
-            <div className="p-2">로그인</div>
+            <div className="m-2 p-2 hover:bg-[#02007F] hover:text-white">로그인</div>
           </Link>
         </div>
       )}
@@ -111,9 +118,9 @@ const Navbar: React.FC<NavbarProps> = ({ onSearch }) => {
             />
             <button
               onClick={handleSearchClick}
-              className="w-16 p-1 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500"
+              className="flex justify-center items-center w-16 p-1 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500"
             >
-              검색
+              <img src="/imgs/search.png" alt="nav_icon" className="w-6 sm:w-6" />
             </button>
           </div>
 
@@ -148,7 +155,7 @@ const Navbar: React.FC<NavbarProps> = ({ onSearch }) => {
           )}
 
           {debounceSearchQuery && searchResults.length === 0 && (
-            <div className="mt-4 text-gray-500">검색된 결과가 없습니다.</div>
+            <div className="flex justify-center my-4 text-gray-500 ">검색된 결과가 없습니다.</div>
           )}
         </div>
       )}
