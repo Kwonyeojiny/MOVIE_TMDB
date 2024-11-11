@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { fetchMovieDetail } from '../api/tmdbApi';
 import { useNavigate, useParams } from 'react-router-dom';
+import TypeIt from 'typeit';
 
 const baseUrl = 'https://image.tmdb.org/t/p/w500';
 
@@ -9,6 +10,7 @@ const MovieDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
+  const overviewRef = useRef<HTMLDivElement>(null);
 
   const { poster_path, title, vote_average, genres, overview, release_date, runtime, tagline } =
     movieData || {};
@@ -30,6 +32,16 @@ const MovieDetail: React.FC = () => {
     };
     getMovieData();
   }, [id]);
+
+  useEffect(() => {
+    if (overview && overviewRef.current) {
+      new TypeIt(overviewRef.current, {
+        strings: overview,
+        speed: 50,
+        waitUntilVisible: true,
+      }).go();
+    }
+  }, [overview]);
 
   if (loading) return <div>Loading...</div>;
   if (!movieData) return <div>영화 데이터가 없습니다</div>;
@@ -72,7 +84,11 @@ const MovieDetail: React.FC = () => {
           alt={`${title} poster`}
         />
         <div className="flex flex-grow flex-col gap-4 m-2">
-          {tagline && <p className="text-xl italic font-bold mb-4">&quot;{tagline}&quot;</p>}
+          {tagline && (
+            <p className="text-base text-center  sm:text-xl italic font-extrabold mb-4">
+              &quot;{tagline}&quot;
+            </p>
+          )}
           <div className="text-sm sm:text-base">
             평점: {vote_average ? vote_average.toFixed(1) : '정보 없음'}
           </div>
@@ -83,8 +99,11 @@ const MovieDetail: React.FC = () => {
             상영시간: {runtime ? formatRuntime(runtime) : '정보 없음'}
           </div>
 
-          <div className="text-sm sm:text-base">줄거리: </div>
-          <div className="text-xs sm:text-sm p-2 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 max-h-[240px] overflow-y-auto">
+          <div className="text-sm sm:text-base ">줄거리: </div>
+          <div
+            ref={overviewRef}
+            className="text-xs sm:text-sm p-2 border-4 border-gray-200 border-l-gray-500 border-t-gray-500 bg-white h-[220px] overflow-y-auto"
+          >
             {overview ? overview : '정보 없음'}
           </div>
         </div>
