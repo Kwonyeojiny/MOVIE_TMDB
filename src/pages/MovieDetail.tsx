@@ -11,6 +11,7 @@ const MovieDetail: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const overviewRef = useRef<HTMLDivElement>(null);
+  const [isOverviewEmpty, setIsOverviewEmpty] = useState(false);
 
   const { poster_path, title, vote_average, genres, overview, release_date, runtime, tagline } =
     movieData || {};
@@ -34,12 +35,17 @@ const MovieDetail: React.FC = () => {
   }, [id]);
 
   useEffect(() => {
-    if (overview && overviewRef.current) {
-      new TypeIt(overviewRef.current, {
-        strings: overview,
-        speed: 50,
-        waitUntilVisible: true,
-      }).go();
+    if (overview) {
+      setIsOverviewEmpty(false);
+      if (overviewRef.current) {
+        new TypeIt(overviewRef.current, {
+          strings: overview,
+          speed: 50,
+          waitUntilVisible: true,
+        }).go();
+      }
+    } else {
+      setIsOverviewEmpty(true);
     }
   }, [overview]);
 
@@ -104,7 +110,7 @@ const MovieDetail: React.FC = () => {
             ref={overviewRef}
             className="text-xs sm:text-sm p-2 border-4 border-gray-200 border-l-gray-500 border-t-gray-500 bg-white h-[220px] overflow-y-auto"
           >
-            {overview ? overview : '정보 없음'}
+            {isOverviewEmpty && '정보 없음'}
           </div>
         </div>
       </div>
