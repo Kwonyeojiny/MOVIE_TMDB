@@ -28,6 +28,7 @@ const Signup: React.FC = () => {
     const { email, password, name } = data;
 
     try {
+      // Supabase에 회원가입 요청
       const {
         data: { user },
         error: signUpError,
@@ -43,6 +44,16 @@ const Signup: React.FC = () => {
         throw new Error('회원가입에 실패했습니다.');
       }
 
+      // 회원가입 후 사용자의 display_name을 설정
+      const { error: updateError } = await supabase.auth.updateUser({
+        data: {
+          display_name: name, // display_name 필드에 name 저장
+        },
+      });
+
+      if (updateError) throw updateError;
+
+      // users 테이블에 추가 정보 저장
       const { error: insertError } = await supabase.from('users').insert([
         {
           name,
