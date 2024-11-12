@@ -72,10 +72,20 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-[calc(100vh-2rem)] mt-12">
-      <div className="w-full m-4 max-w-md p-8 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300">
-        <h2 className="text-2xl font-bold text-center mb-6">회원가입</h2>
-        <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="p-1 w-full m-4 max-w-md border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300">
+        <header className="mb-4 p-2 bg-[#02007F] flex items-center justify-between">
+          <div className="flex items-center">
+            <img src="/imgs/folder.png" className="w-8 mx-2" alt="Folder icon" />
+            <div className="text-white font-bold text-lg sm:text-xl md:text-2xl truncate">
+              회원가입
+            </div>
+          </div>
+          <button className="p-1 border-2 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500">
+            <img src="/imgs/darkx.png" alt="Close icon" />
+          </button>
+        </header>
+        <form onSubmit={handleSubmit(onSubmit)} className="p-8">
           <SignInput
             label="이름"
             type="text"

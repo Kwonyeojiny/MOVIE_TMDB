@@ -132,46 +132,60 @@ const Signin: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="w-full m-4 max-w-md p-8 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300">
-        <h2 className="text-2xl font-bold text-center mb-6">로그인</h2>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <SignInput
-            label="이메일"
-            type="email"
-            id="email"
-            autoComplete="email"
-            register={register('email')}
-            error={errors.email}
-          />
+      <div className="p-1 w-full m-4 pb-8 max-w-md border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300">
+        <div>
+          <header className="mb-4 p-2 bg-[#02007F] flex items-center justify-between">
+            <div className="flex items-center">
+              <img src="/imgs/folder.png" className="w-8 mx-2" alt="Folder icon" />
+              <div className="text-white font-bold text-lg sm:text-xl md:text-2xl truncate">
+                로그인
+              </div>
+            </div>
+            <button className="p-1 border-2 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500">
+              <img src="/imgs/darkx.png" alt="Close icon" />
+            </button>
+          </header>
+        </div>
+        <div className="mx-8">
+          <form onSubmit={handleSubmit(onSubmit)} className="py-8">
+            <SignInput
+              label="이메일"
+              type="email"
+              id="email"
+              autoComplete="email"
+              register={register('email')}
+              error={errors.email}
+            />
 
-          <SignInput
-            label="비밀번호"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            register={register('password')}
-            error={errors.password}
-          />
+            <SignInput
+              label="비밀번호"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              register={register('password')}
+              error={errors.password}
+            />
 
-          <button
-            type="submit"
-            className="w-full max-w-md mt-4 p-2 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500"
-          >
-            로그인
-          </button>
-        </form>
-        <div className="   mt-8 border-t-2 border-gray-400">
-          <div className=" border-b-2 border-gray-200"></div>
-          <div className="flex justify-center gap-8">
             <button
-              onClick={handleKakaoLogin}
-              className=" mt-4 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500"
+              type="submit"
+              className="w-full max-w-md mt-4 p-2 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500"
             >
-              <img src="/imgs/Kakao.png" className="w-12" />
+              로그인
             </button>
-            <button className=" mt-4 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500">
-              <img src="/imgs/Google.png" className="w-12" />
-            </button>
+          </form>
+          <div className=" border-t-2 border-gray-400">
+            <div className="border-b-2 border-gray-200"></div>
+            <div className=" flex justify-center gap-8">
+              <button
+                onClick={handleKakaoLogin}
+                className=" mt-4 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500"
+              >
+                <img src="/imgs/Kakao.png" className="w-12" />
+              </button>
+              <button className=" mt-4 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500">
+                <img src="/imgs/Google.png" className="w-12" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
