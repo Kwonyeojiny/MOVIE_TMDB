@@ -26,6 +26,16 @@ const Signin: React.FC = () => {
     resolver: zodResolver(signinSchema),
   });
 
+  const handleKakaoLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'kakao',
+    });
+
+    if (error) {
+      console.error('Kakao login error:', error.message);
+    }
+  };
+
   const onSubmit: SubmitHandler<SigninFormData> = async data => {
     const { email, password } = data;
 
@@ -104,6 +114,16 @@ const Signin: React.FC = () => {
           >
             로그인
           </button>
+
+          <div className=" flex justify-center items-center mt-8 border-t-2 border-gray-400">
+            <div className="border-b-2 border-gray-200"></div>
+            <button
+              onClick={handleKakaoLogin}
+              className=" mt-4 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500"
+            >
+              <img src="/imgs/Kakao.png" className="w-12" />
+            </button>
+          </div>
         </form>
       </div>
     </div>
