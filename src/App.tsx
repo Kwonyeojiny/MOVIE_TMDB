@@ -6,6 +6,8 @@ import Navbar from './components/Navbar';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import { useState } from 'react';
+import { Provider } from 'react-redux';
+import store from './RTK/store';
 
 function App() {
   const [searchResults, setSearchResults] = useState<any[]>([]);
@@ -16,13 +18,15 @@ function App() {
 
   return (
     <>
-      <Navbar onSearch={handleSearch} />
-      <Routes>
-        <Route path="/" element={<MovieList searchResults={searchResults} />} />
-        <Route path="/details/:id" element={<MoveiDetail />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
+      <Provider store={store}>
+        <Navbar onSearch={handleSearch} />
+        <Routes>
+          <Route path="/" element={<MovieList searchResults={searchResults} />} />
+          <Route path="/details/:id" element={<MoveiDetail />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </Provider>
     </>
   );
 }

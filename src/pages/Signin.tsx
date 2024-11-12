@@ -5,6 +5,8 @@ import SignInput from '../components/SignInput';
 import { useNavigate } from 'react-router-dom';
 import { signinSchema } from '../schemas/signInSchema';
 import { supabase } from '../api/supabaseApi';
+import { useDispatch } from 'react-redux';
+import { loginFailure, loginStart, loginSuccess } from '../RTK/userSlice';
 
 type SigninFormData = {
   email: string;
@@ -13,6 +15,7 @@ type SigninFormData = {
 
 const Signin: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -26,6 +29,8 @@ const Signin: React.FC = () => {
   const onSubmit: SubmitHandler<SigninFormData> = async data => {
     const { email, password } = data;
 
+    dispatch(loginStart());
+
     try {
       const {
         data: { user },
@@ -37,11 +42,36 @@ const Signin: React.FC = () => {
 
       if (error) throw error;
 
-      console.log('로그인 성공: ', user);
+      if (user) {
+        const { data: userData, error: userError } = await supabase
+          .from('users')
+          .select('name')
+          .eq('email', user.email)
+          .single();
+
+        if (userError) {
+          console.error('사용자 정보 가져오기 실패: ', userError.message);
+          return;
+        }
+
+        dispatch(
+          loginSuccess({
+            email: user.email ?? '',
+            name: userData?.name ?? '',
+          }),
+        );
+        console.log('로그인 성공: ', user);
+        console.log('이메일: ', user.email);
+        console.log('이름: ', userData?.name);
+      } else {
+        console.error('로그인 실패: 사용자 정보를 가져올 수 없습니다.');
+      }
+
       navigate('/');
       reset();
     } catch (error: any) {
       console.error('로그인 실패: ', error.message);
+      dispatch(loginFailure(error.message));
     }
   };
 

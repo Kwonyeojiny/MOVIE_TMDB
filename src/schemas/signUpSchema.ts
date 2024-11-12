@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const signupSchema = z
   .object({
-    name: z.string().min(1, '이름을 입력해주세요'),
+    name: z.string().min(1, '이름을 입력해주세요').max(12, '이름의 최대 길이는 12자 이하입니다'),
     email: z.string().email('유효한 이메일 주소를 입력해주세요'),
     password: z
       .string()

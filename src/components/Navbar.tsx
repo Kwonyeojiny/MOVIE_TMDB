@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import useDebounce from '../hooks/useDebounce';
 import { fetchSearchMovie } from '../api/tmdbApi';
 import { Menu } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../RTK/store';
+import { logout } from '../RTK/userSlice';
 
 interface NavbarProps {
   onSearch: (results: any[]) => void;
@@ -15,6 +18,14 @@ const Navbar: React.FC<NavbarProps> = ({ onSearch }) => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const debounceSearchQuery = useDebounce(searchQuery, 500);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const user = useSelector((state: RootState) => state.user.user);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/');
+  };
 
   useEffect(() => {
     const searchMovies = async () => {
@@ -69,42 +80,79 @@ const Navbar: React.FC<NavbarProps> = ({ onSearch }) => {
               <img src="/imgs/search.png" alt="nav_icon" className="w-6 sm:w-6" />
             )}
           </div>
-          <div className="md:hidden ">
-            <button
-              onClick={toggleMenu}
-              className="p-1 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500 "
-            >
-              <Menu size={24} />
-            </button>
-          </div>
-          <div className="hidden md:flex gap-4">
-            <Link to="/signup">
-              <div className="p-1 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500">
-                회원가입
+
+          {user ? (
+            <div className="flex items-center gap-4">
+              <button
+                onClick={toggleMenu}
+                className="truncate p-1 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500"
+              >
+                {user.name}
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="md:hidden ">
+                <button
+                  onClick={toggleMenu}
+                  className="p-1 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500 "
+                >
+                  <Menu size={24} />
+                </button>
               </div>
-            </Link>
-            <Link to="/signin">
-              <div className="p-1 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500">
-                로그인
+              <div className="hidden md:flex gap-4">
+                <Link to="/signup">
+                  <div className="p-1 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500">
+                    회원가입
+                  </div>
+                </Link>
+                <Link to="/signin">
+                  <div className="p-1 border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300 active:border-gray-200 active:border-l-gray-500 active:border-t-gray-500">
+                    로그인
+                  </div>
+                </Link>
               </div>
-            </Link>
-          </div>
+            </>
+          )}
         </div>
       </div>
 
-      {isMenuOpen && (
-        <div className="md:hidden border-t-2 border-gray-400">
-          <Link to="/signup" onClick={toggleMenu}>
-            <div className="m-2 p-2 border-b border-gray-300 hover:bg-[#02007F] hover:text-white">
-              회원가입
+      {/* 로그인 정보있을 때 클릭하면 관심목록, 로그아웃 표시 */}
+      {user ? (
+        <>
+          {isMenuOpen && (
+            <div className="mx-2 border-t-2 border-gray-400">
+              <div className="border-b-2 border-gray-200"></div>
+              <Link to="/" onClick={toggleMenu}>
+                <div className="m-2 p-2 border-b border-gray-300 hover:bg-[#02007F] hover:text-white">
+                  관심 목록
+                </div>
+              </Link>
+              <Link to="/" onClick={handleLogout}>
+                <div className="m-2 p-2 hover:bg-[#02007F] hover:text-white">로그아웃</div>
+              </Link>
             </div>
-          </Link>
-          <Link to="/signin" onClick={toggleMenu}>
-            <div className="m-2 p-2 hover:bg-[#02007F] hover:text-white">로그인</div>
-          </Link>
-        </div>
+          )}
+        </>
+      ) : (
+        <>
+          {/* 모바일 뷰일 때 햄버거 메뉴 */}
+          {isMenuOpen && (
+            <div className="md:hidden border-t-2 border-gray-400">
+              <Link to="/signup" onClick={toggleMenu}>
+                <div className="m-2 p-2 border-b border-gray-300 hover:bg-[#02007F] hover:text-white">
+                  회원가입
+                </div>
+              </Link>
+              <Link to="/signin" onClick={toggleMenu}>
+                <div className="m-2 p-2 hover:bg-[#02007F] hover:text-white">로그인</div>
+              </Link>
+            </div>
+          )}
+        </>
       )}
 
+      {/* 검색창 클릭 */}
       {isSearchOpen && (
         <div className="mx-2 border-t-2 border-gray-400">
           <div className="border-b-2 border-gray-200"></div>
