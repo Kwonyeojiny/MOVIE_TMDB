@@ -32,7 +32,7 @@ const MovieList: React.FC<MovieListProps> = ({ searchResults }) => {
 
   return (
     <div className="container mx-auto px-4 mt-24 mb-8">
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4">
         {moviesToDisplay.map(movie => (
           <Link to={`/details/${movie.id}`} key={movie.id} className="flex justify-center">
             <MovieCard title={movie.title} poster_path={movie.poster_path} />
