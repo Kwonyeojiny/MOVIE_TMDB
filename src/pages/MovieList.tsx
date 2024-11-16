@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { fetchPopularMovies } from '../api/tmdbApi';
 import MovieCard from '../components/MovieCard';
 import MovieTopRated from '../components/MovieTopRated';
+import MovieUpcoming from '../components/MovieUpcoming';
 
 interface MovieListProps {
   searchResults: any[];
@@ -34,6 +35,7 @@ const MovieList: React.FC<MovieListProps> = ({ searchResults }) => {
   return (
     <div className="container mx-auto px-4 mt-24 mb-8">
       <MovieTopRated />
+      <MovieUpcoming />
 
       <div className="underline my-4 text-2xl sm:text-3xl text-white text-shadow drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
         Popular

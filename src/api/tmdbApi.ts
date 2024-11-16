@@ -28,6 +28,16 @@ export const fetchTopRatedMovies = async () => {
   }
 };
 
+export const fetchUpcomingMovies = async () => {
+  try {
+    const response = await tmdbApi.get('/movie/upcoming');
+    return response.data.results;
+  } catch (error) {
+    console.error('Error fetching upcoming movies: ', error);
+    return [];
+  }
+};
+
 export const fetchMovieDetail = async (movieId: string | undefined) => {
   try {
     const response = await tmdbApi.get(`/movie/${movieId}`);
