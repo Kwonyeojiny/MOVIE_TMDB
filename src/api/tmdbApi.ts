@@ -18,6 +18,16 @@ export const fetchPopularMovies = async () => {
   }
 };
 
+export const fetchTopRatedMovies = async () => {
+  try {
+    const response = await tmdbApi.get('/movie/top_rated');
+    return response.data.results;
+  } catch (error) {
+    console.error('Error fetching top rated movies: ', error);
+    return [];
+  }
+};
+
 export const fetchMovieDetail = async (movieId: string | undefined) => {
   try {
     const response = await tmdbApi.get(`/movie/${movieId}`);

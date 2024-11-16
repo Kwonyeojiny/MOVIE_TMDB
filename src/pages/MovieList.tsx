@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchPopularMovies } from '../api/tmdbApi';
 import MovieCard from '../components/MovieCard';
+import MovieTopRated from '../components/MovieTopRated';
 
 interface MovieListProps {
   searchResults: any[];
@@ -32,7 +33,9 @@ const MovieList: React.FC<MovieListProps> = ({ searchResults }) => {
 
   return (
     <div className="container mx-auto px-4 mt-24 mb-8">
-      <div className="my-4 text-2xl sm:text-3xl text-white text-shadow drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+      <MovieTopRated />
+
+      <div className="underline my-4 text-2xl sm:text-3xl text-white text-shadow drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
         Popular
       </div>
       <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
