@@ -80,7 +80,7 @@ const MovieDetail: React.FC = () => {
       <div className="grid gap-4 p-4 mx-2 border-t-2 border-gray-200 sm:grid-cols-[auto,1fr]">
         <img
           src={`${baseUrl}${poster_path}`}
-          className="w-full max-w-[320px] mx-auto border-4 border-gray-500 border-l-gray-200 border-t-gray-200 bg-gray-300"
+          className="w-full max-w-[320px] mx-auto border-4 border-gray-200 border-l-gray-500 border-t-gray-500 bg-gray-300"
           alt={`${title} poster`}
         />
         <div className="flex flex-grow flex-col gap-4 m-2">
